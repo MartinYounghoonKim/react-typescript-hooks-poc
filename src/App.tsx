@@ -1,24 +1,19 @@
-import React from 'react';
+import * as React from 'react';
 import './App.css';
 
-function App() {
+const App: React.FunctionComponent = () => {
+  const [text, setText] = React.useState("");
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input
+          type="text"
+          value={text}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
+        />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
