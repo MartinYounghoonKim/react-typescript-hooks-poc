@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './App.css';
+import Information from "./Information";
 
 const App: React.FunctionComponent = () => {
   const [text, setText] = React.useState("");
@@ -12,6 +13,7 @@ const App: React.FunctionComponent = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
         />
       </div>
+      <Information isTyping={text}/>
     </div>
   );
 };
