@@ -15,6 +15,7 @@ const App: React.FunctionComponent = () => {
   }, []); // 만약 빈 배열을 넣어주지 않는다면, 텍스트를 입력할 때마다 API를 호출하게 된다.
   return (
     <div className="App">
+      <h1>React Hooks Todo app</h1>
       <div>
         <input
           type="text"
@@ -24,7 +25,10 @@ const App: React.FunctionComponent = () => {
       </div>
       <ul>
         {todos.map(({ id, title }) => (
-          <li key={id}>{title}</li>
+          <li key={id}>
+            {title}
+            <button type="button" onClick={() => setTodos(todos.filter(v => v.id !== id))}>X</button>
+          </li>
         ))}
       </ul>
       <Information isTyping={text}/>
