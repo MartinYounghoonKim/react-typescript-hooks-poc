@@ -1,25 +1,64 @@
 import * as React from 'react';
 import { ITodo } from "../todo";
+import { useEffect, useState } from "react";
 
 interface IProps {
   todos: ITodo[];
 
   deleteTodo(id: string): void;
+  updateTodo(id: string, text: string): void;
 }
 const TodoList: React.FunctionComponent<IProps> = (
   {
     todos,
+    updateTodo,
     deleteTodo
   }
-) => (
-  <ul>
-    {todos.map(({ id, title }) => (
-      <li key={id}>
-        {title}
-        <button type="button" onClick={() => deleteTodo(id)}>X</button>
-      </li>
-    ))}
-  </ul>
-);
+) => {
+  const inputRef = React.useRef<any>(null);
+  const [editingId, setEditingId] = useState("");
+  const [editingTodo, setEditingTodo] = useState("");
+  useEffect(() => {
+    inputRef.current && inputRef.current.focus();
+  }, [editingId]);
+
+  useEffect(() => {
+    console.log(111);
+  }, [todos]);
+
+  return (
+    <ul>
+      {todos.map(({ id, title }) => (
+        <li
+          key={id}
+          onDoubleClick={() => {
+            setEditingTodo(title);
+            setEditingId(id);
+          }}
+        >
+          {editingId !== id ? title : (
+            <input
+              ref={(inputElement) => { inputRef.current = inputElement; }}
+              value={editingTodo}
+              onChange={(event) => {
+                setEditingTodo(event.currentTarget.value);
+              }}
+              onKeyDown={(event) => {
+                if (event.keyCode === 13) {
+                  updateTodo(id, editingTodo);
+                }
+              }}
+              onBlur={() => {
+                setEditingId("");
+                setEditingTodo("");
+              }}
+            />
+          )}
+          <button type="button" onClick={() => deleteTodo(id)}>X</button>
+        </li>
+      ))}
+    </ul>
+  )
+};
 
 export default TodoList;

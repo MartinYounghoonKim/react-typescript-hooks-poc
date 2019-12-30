@@ -1,9 +1,8 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import './App.css';
-import Information from "./Information";
 import axios from "axios";
 import { ITodo } from "./todo";
-import { useEffect } from "react";
 import TodoList from "./components/TodoList";
 import Header from "./components/Header";
 
@@ -27,6 +26,15 @@ const App: React.FunctionComponent = () => {
     const response = await axios.get("https://todo-backend-modern-js.herokuapp.com/todos");
     if (response.status === 200) {
       setTodos(response.data);
+    }
+  };
+  const updateTodo = async (id: string, title: string) => {
+    const response = await axios.patch(`https://todo-backend-modern-js.herokuapp.com/todos/${id}`, { title });
+    if (response.status === 200) {
+      const targetIndex = todos.findIndex(todo => todo.id === id);
+      console.log(targetIndex);
+      console.log(response.data);
+      setTodos(prevState => prevState.splice(targetIndex, 1, response.data));
     }
   };
 
