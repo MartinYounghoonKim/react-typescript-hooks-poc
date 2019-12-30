@@ -4,10 +4,12 @@ import Information from "./Information";
 import axios from "axios";
 import { ITodo } from "./todo";
 import { useEffect } from "react";
+import TodoList from "./components/TodoList";
 
 const App: React.FunctionComponent = () => {
   const [todos, setTodos] = React.useState<ITodo[]>([]);
   const [text, setText] = React.useState("");
+
   const deleteTodo = async (id: string) => {
     const response  = await axios.delete(`https://todo-backend-modern-js.herokuapp.com/todos/${id}`);
     if (response.status === 200) {
@@ -46,14 +48,7 @@ const App: React.FunctionComponent = () => {
           }}
         />
       </div>
-      <ul>
-        {todos.map(({ id, title }) => (
-          <li key={id}>
-            {title}
-            <button type="button" onClick={() => deleteTodo(id)}>X</button>
-          </li>
-        ))}
-      </ul>
+      <TodoList todos={todos} deleteTodo={deleteTodo}/>
       <Information isTyping={text}/>
     </div>
   );
