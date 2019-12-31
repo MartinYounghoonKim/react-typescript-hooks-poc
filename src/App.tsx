@@ -34,6 +34,7 @@ const App: React.FunctionComponent = () => {
     const response = await axios.patch(`https://todo-backend-modern-js.herokuapp.com/todos/${id}`, { title });
     if (response.status === 200) {
       setTodos(todos.map(todo => todo.id === id ? response.data : todo));
+      setEditing(false);
     }
   };
 
