@@ -31,10 +31,7 @@ const App: React.FunctionComponent = () => {
   const updateTodo = async (id: string, title: string) => {
     const response = await axios.patch(`https://todo-backend-modern-js.herokuapp.com/todos/${id}`, { title });
     if (response.status === 200) {
-      const targetIndex = todos.findIndex(todo => todo.id === id);
-      console.log(targetIndex);
-      console.log(response.data);
-      setTodos(prevState => prevState.splice(targetIndex, 1, response.data));
+      setTodos(todos.map(todo => todo.id === id ? response.data : todo));
     }
   };
 

@@ -23,7 +23,9 @@ const TodoList: React.FunctionComponent<IProps> = (
   }, [editingId]);
 
   useEffect(() => {
-    console.log(111);
+    console.log("변경되었습니다.");
+    setEditingId("");
+    setEditingTodo("");
   }, [todos]);
 
   return (
