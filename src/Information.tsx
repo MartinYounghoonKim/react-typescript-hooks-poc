@@ -1,17 +1,24 @@
-import * as React from 'react';
-import './App.css';
+import * as React from "react";
+import { useEffect, useState } from "react";
+import "./App.css";
 
 interface IProps {
-  isTyping: string;
 }
 const Information: React.FunctionComponent<IProps> = (
   {
-    isTyping
   }
 ) => {
+  const [timer, setTimer] = useState(60000);
+  useEffect(function () {
+    const interval = setInterval(function () {
+      setTimer(timer - 1000);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
   return (
     <div>
-      {isTyping ? "현재 입력중..." : ""}
+      수정 중입니다.
+      {timer}
     </div>
   );
 };

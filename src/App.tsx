@@ -5,8 +5,10 @@ import axios from "axios";
 import { ITodo } from "./@types/todo";
 import TodoList from "./components/TodoList";
 import Header from "./components/Header";
+import Information from "./Information";
 
 const App: React.FunctionComponent = () => {
+  const [isEditing, setEditing] = React.useState(false);
   const [todos, setTodos] = React.useState<ITodo[]>([]);
 
   const deleteTodo = async (id: string) => {
@@ -43,8 +45,15 @@ const App: React.FunctionComponent = () => {
   return (
     <div className="App">
       <Header addTodo={addTodo}/>
-      <TodoList todos={todos} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
-      {/*<Information isTyping={text}/>*/}
+      <TodoList
+        todos={todos}
+        deleteTodo={deleteTodo}
+        updateTodo={updateTodo}
+        setEditing={setEditing}
+      />
+      {isEditing && (
+        <Information/>
+      )}
     </div>
   );
 };

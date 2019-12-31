@@ -5,12 +5,14 @@ import { useEffect, useState } from "react";
 interface IProps {
   todos: ITodo[];
 
+  setEditing(isEditing: boolean): void;
   deleteTodo(id: string): void;
   updateTodo(id: string, text: string): void;
 }
 const TodoList: React.FunctionComponent<IProps> = (
   {
     todos,
+    setEditing,
     updateTodo,
     deleteTodo
   }
@@ -34,6 +36,7 @@ const TodoList: React.FunctionComponent<IProps> = (
         <li
           key={id}
           onDoubleClick={() => {
+            setEditing(true);
             setEditingTodo(title);
             setEditingId(id);
           }}
@@ -51,6 +54,7 @@ const TodoList: React.FunctionComponent<IProps> = (
                 }
               }}
               onBlur={() => {
+                setEditing(false);
                 setEditingId("");
                 setEditingTodo("");
               }}
