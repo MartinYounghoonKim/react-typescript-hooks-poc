@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import './App.css';
 import axios from "axios";
-import { ITodo } from "./todo";
+import { ITodo } from "./@types/todo";
 import TodoList from "./components/TodoList";
 import Header from "./components/Header";
 

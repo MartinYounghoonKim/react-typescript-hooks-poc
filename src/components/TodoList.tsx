@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ITodo } from "../todo";
+import { ITodo } from "../@types/todo";
 import { useEffect, useState } from "react";
 
 interface IProps {
