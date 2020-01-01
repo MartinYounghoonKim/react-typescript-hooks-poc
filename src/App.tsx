@@ -5,7 +5,7 @@ import axios from "axios";
 import { ITodo } from "./@types/todo";
 import TodoList from "./components/TodoList";
 import Header from "./components/Header";
-import Information from "./Information";
+import Information from "./components/Information";
 
 const App: React.FunctionComponent = () => {
   const [isEditing, setEditing] = React.useState(false);
