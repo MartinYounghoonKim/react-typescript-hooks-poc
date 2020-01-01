@@ -1,13 +1,9 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import "../App.css";
 
 interface IProps {
 }
-const Information: React.FunctionComponent<IProps> = (
-  {
-  }
-) => {
+const EditingParagraph: React.FunctionComponent<IProps> = ({}) => {
   const [timer, setTimer] = useState(60000);
   useEffect(function () {
     const interval = setInterval(function () {
@@ -25,4 +21,4 @@ const Information: React.FunctionComponent<IProps> = (
   );
 };
 
-export default Information;
+export default EditingParagraph;
