@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import './App.css';
 import axios from "axios";
 import { ITodo } from "./@types/todo";
@@ -11,32 +11,33 @@ const App: React.FunctionComponent = () => {
   const [isEditing, setEditing] = React.useState(false);
   const [todos, setTodos] = React.useState<ITodo[]>([]);
 
-  const deleteTodo = async (id: string) => {
+  const deleteTodo = useCallback(async (id: string) => {
     const response  = await axios.delete(`https://todo-backend-modern-js.herokuapp.com/todos/${id}`);
     if (response.status === 200) {
-      setTodos(todos.filter(v => v.id !== id))
+      setTodos(prevState => prevState.filter(v => v.id !== id));
     }
-  };
-  const addTodo = async (title: string, cb: () => void) => {
+  }, []);
+  const addTodo = useCallback(async (title: string, cb: () => void) => {
     const response  = await axios.post("https://todo-backend-modern-js.herokuapp.com/todos", { title });
     if (response.status === 200) {
       setTodos(prevState => [...prevState, response.data]);
       cb();
     }
-  };
-  const fetchTodos = async () => {
+  }, []);
+
+  const fetchTodos = useCallback(async () => {
     const response = await axios.get("https://todo-backend-modern-js.herokuapp.com/todos");
     if (response.status === 200) {
       setTodos(response.data);
     }
-  };
-  const updateTodo = async (id: string, title: string) => {
+  }, []);
+  const updateTodo = useCallback(async (id: string, title: string) => {
     const response = await axios.patch(`https://todo-backend-modern-js.herokuapp.com/todos/${id}`, { title });
     if (response.status === 200) {
-      setTodos(todos.map(todo => todo.id === id ? response.data : todo));
+      setTodos(prevState => prevState.map(todo => todo.id === id ? response.data : todo));
       setEditing(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchTodos();
