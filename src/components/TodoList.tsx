@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ITodo } from "../@types/todo";
 import { useEffect, useState } from "react";
+import MemoizedComponent from "./Memoized";
 
 interface IProps {
   todos: ITodo[];
@@ -61,6 +62,7 @@ const TodoList: React.FunctionComponent<IProps> = (
             />
           )}
           <button type="button" onClick={() => deleteTodo(id)}>X</button>
+          <MemoizedComponent title={title}/>
         </li>
       ))}
     </ul>
