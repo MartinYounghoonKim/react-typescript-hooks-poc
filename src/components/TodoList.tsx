@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ITodo } from "../@types/todo";
 import { useEffect, useState } from "react";
 import MemoizedComponent from "./Memoized";
+import { Trigger } from "../context";
 
 interface IProps {
   todos: ITodo[];
@@ -34,14 +35,7 @@ const TodoList: React.FunctionComponent<IProps> = (
   return (
     <ul>
       {todos.map(({ id, title }) => (
-        <li
-          key={id}
-          onDoubleClick={() => {
-            setEditing(true);
-            setEditingTodo(title);
-            setEditingId(id);
-          }}
-        >
+        <Trigger key={id} onDoubleClick={() => { setEditingTodo(title); setEditingId(id);}}>
           {editingId !== id ? title : (
             <input
               ref={(inputElement) => { inputRef.current = inputElement; }}
@@ -63,7 +57,7 @@ const TodoList: React.FunctionComponent<IProps> = (
           )}
           <button type="button" onClick={() => deleteTodo(id)}>X</button>
           <MemoizedComponent title={title}/>
-        </li>
+        </Trigger>
       ))}
     </ul>
   )

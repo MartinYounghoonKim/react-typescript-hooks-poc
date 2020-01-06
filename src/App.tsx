@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { useCallback, useEffect, useMemo } from 'react';
-import './App.css';
+import * as React from "react";
+import { useCallback, useEffect, useMemo } from "react";
+import "./App.css";
 import axios from "axios";
 import { ITodo } from "./@types/todo";
 import TodoList from "./components/TodoList";
 import Header from "./components/Header";
-import EditingParagraph from "./components/EditingParagraph";
 import TodoInformation from "./components/TodoInformation";
+import { Timer, TimerProvider } from "./context";
 
 function doneTodoItemCount (todos: ITodo[]): number {
   console.log("doneTodoItemCount 함수가 호출되었습니다.");
@@ -53,19 +53,19 @@ const App: React.FunctionComponent = () => {
   const completedTodoCount = useMemo(() => doneTodoItemCount(todos), [todos]);
   // const completedTodoCount = doneTodoItemCount(todos);
   return (
-    <div className="App">
-      <Header addTodo={addTodo}/>
-      <TodoList
-        todos={todos}
-        deleteTodo={deleteTodo}
-        updateTodo={updateTodo}
-        setEditing={setEditing}
-      />
-      {isEditing && (
-        <EditingParagraph/>
-      )}
-      <TodoInformation completedTodoCount={completedTodoCount}/>
-    </div>
+    <TimerProvider>
+      <div className="App">
+        <Header addTodo={addTodo}/>
+        <TodoList
+          todos={todos}
+          deleteTodo={deleteTodo}
+          updateTodo={updateTodo}
+          setEditing={setEditing}
+        />
+        <Timer />
+        <TodoInformation completedTodoCount={completedTodoCount}/>
+      </div>
+    </TimerProvider>
   );
 };
 
